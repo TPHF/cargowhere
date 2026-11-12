@@ -39,7 +39,7 @@ export interface Carpark {
   hourlyTrends?: number[]; // 24-hour occupancy percentages (0 to 100)
 }
 
-export type DataSource = 'workshop_simulation' | 'custom_proxy' | 'lta_direct';
+export type DataSource = 'serverless_api' | 'workshop_simulation' | 'custom_proxy' | 'lta_direct';
 
 export interface APIConfig {
   source: DataSource;

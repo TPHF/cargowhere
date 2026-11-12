@@ -102,7 +102,25 @@ export async function fetchCarparkData(
   try {
     let rawItems: LTACarparkRaw[] = [];
 
-    if (config.source === 'workshop_simulation') {
+    if (config.source === 'serverless_api') {
+      const headers: Record<string, string> = {
+        'accept': 'application/json'
+      };
+      if (config.accountKey) {
+        headers['AccountKey'] = config.accountKey;
+      }
+
+      const response = await fetch('/api/carparkavailability', { headers });
+      if (!response.ok) {
+        const errJson = await response.json().catch(() => ({}));
+        if (response.status === 401 && errJson.error === 'LTA_ACCOUNT_KEY_MISSING') {
+          throw new Error('Serverless endpoint /api/carparkavailability is active! To fetch live LTA data, please set LTA_ACCOUNT_KEY or input it in API Settings.');
+        }
+        throw new Error(errJson.message || `Serverless API error (${response.status} ${response.statusText})`);
+      }
+      const json = await response.json();
+      rawItems = Array.isArray(json) ? json : json.value || [];
+    } else if (config.source === 'workshop_simulation') {
       // Simulate realistic fluctuation: a few carparks lose or gain 1-5 lots
       if (config.simulateFluctuation) {
         simulatedRawState = simulatedRawState.map(item => {

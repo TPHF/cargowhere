@@ -202,7 +202,24 @@ async def get_carpark_availability():
               {/* Data Source Selector */}
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-slate-700">Data Source</label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div
+                    onClick={() => setLocalConfig({ ...localConfig, source: 'serverless_api' })}
+                    className={`p-3 rounded-xl border cursor-pointer transition-all ${
+                      localConfig.source === 'serverless_api'
+                        ? 'border-slate-900 bg-slate-50 ring-1 ring-slate-900'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-xs text-slate-900">Serverless API Route</span>
+                      <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-mono">/api/carparkavailability</span>
+                    </div>
+                    <div className="text-[11px] text-slate-500 mt-1">
+                      Direct serverless connection using LTA endpoint with caching and CORS.
+                    </div>
+                  </div>
+
                   <div
                     onClick={() => setLocalConfig({ ...localConfig, source: 'workshop_simulation' })}
                     className={`p-3 rounded-xl border cursor-pointer transition-all ${
@@ -213,7 +230,7 @@ async def get_carpark_availability():
                   >
                     <div className="font-semibold text-xs text-slate-900">Workshop Simulation</div>
                     <div className="text-[11px] text-slate-500 mt-1">
-                      65+ real SG carparks with live simulated lot fluctuations. Zero backend setup needed.
+                      65+ real SG carparks with live simulated lot fluctuations.
                     </div>
                   </div>
 
@@ -227,7 +244,7 @@ async def get_carpark_availability():
                   >
                     <div className="font-semibold text-xs text-slate-900">Custom Backend Proxy</div>
                     <div className="text-[11px] text-slate-500 mt-1">
-                      Points to your local or deployed Express / FastAPI proxy endpoint.
+                      Points to your custom external proxy URL.
                     </div>
                   </div>
 
@@ -239,9 +256,9 @@ async def get_carpark_availability():
                         : 'border-slate-200 hover:border-slate-300'
                     }`}
                   >
-                    <div className="font-semibold text-xs text-slate-900">Direct LTA DataMall</div>
+                    <div className="font-semibold text-xs text-slate-900">Direct Browser Request</div>
                     <div className="text-[11px] text-slate-500 mt-1">
-                      Direct request with AccountKey (requires CORS proxy or browser extension).
+                      Direct client fetch (requires CORS extension).
                     </div>
                   </div>
                 </div>

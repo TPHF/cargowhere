@@ -15,9 +15,9 @@ import { RateEstimator } from './components/RateEstimator';
 import { Server, MapPin, Car, Shield, RefreshCw, AlertCircle, Compass, Radio } from 'lucide-react';
 
 const DEFAULT_CONFIG: APIConfig = {
-  source: 'workshop_simulation',
+  source: 'serverless_api',
   accountKey: '',
-  proxyUrl: 'http://localhost:3001/api/carparks',
+  proxyUrl: '/api/carparkavailability',
   refreshIntervalSeconds: 30,
   autoRefresh: true,
   simulateFluctuation: true,
@@ -212,7 +212,9 @@ export default function App() {
             <div className="flex items-center gap-1.5">
               <Radio className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
               <span className="font-medium text-slate-800">
-                {config.source === 'workshop_simulation'
+                {config.source === 'serverless_api'
+                  ? 'Serverless (/api)'
+                  : config.source === 'workshop_simulation'
                   ? 'Workshop Simulator'
                   : config.source === 'custom_proxy'
                   ? 'Backend Proxy'
