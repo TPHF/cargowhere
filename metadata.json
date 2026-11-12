@@ -1,0 +1,6 @@
+{
+  "name": "SG ParkLive - Real-Time Singapore Carpark Availability",
+  "description": "Live tracking of Singapore carpark lot availability powered by LTA DataMall API with interactive map, smart search, and real-time updates.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
